@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     
     private float _hAxis;
     private float _vAxis;
+    public Vector3 _inputVec;
     public Vector3 _moveVec;
     private Vector3 _dodgeVec;
     private Animator _animator;
@@ -65,6 +66,7 @@ public class Player : MonoBehaviour
     void Move()
     {
         _moveVec = new Vector3(_hAxis, 0, _vAxis).normalized;
+        _inputVec = _moveVec;
 
         if (_isDodge)
             _moveVec = _dodgeVec;

@@ -1,33 +1,55 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Reposition : MonoBehaviour
-{ 
+{
+    private Collider coll;
+
+    private void Awake()
+    {
+        coll = GetComponent<Collider>();
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Area")) return;
 
         Vector3 playerPos = GameManager.instance.player.transform.position;
-        Vector3 myPos = transform.position;
-        float diffX = Mathf.Abs(playerPos.x - myPos.x);
-        float diffZ = Mathf.Abs(playerPos.z - myPos.z);
-
         Vector3 playerDir = GameManager.instance.player._moveVec;
+        Vector3 myPos = transform.position;
 
-        float dirX = playerDir.x < 0 ? -1 : 1;
-        float dirZ = playerDir.z < 0 ? -1 : 1;
+        float dirX = playerPos.x - myPos.x;
+        float dirZ = playerPos.z - myPos.z;
+
+        float diffx = Mathf.Abs(dirX);
+        float diffz = Mathf.Abs(dirZ);
+
+        dirX = dirX > 0 ? 1 : -1;
+        dirZ = dirZ > 0 ? 1 : -1;
 
         switch (transform.tag)
         {
             case "Floor" :
 
-                if (diffX > diffZ)
+                if (diffx > diffz)
                 {
-                    transform.localPosition += new Vector3(1, 0, 0) * dirX * 400;
+                    transform.Translate(new Vector3(1, 0, 0) * dirX * 400);
                 }
-                else if (diffX < diffZ)
+                else if (diffx < diffz)
                 {
-                    transform.localPosition += new Vector3(0, 0, 1) * dirZ * 400;
+                    transform.Translate(new Vector3(0, 0, 1) * dirZ * 400);
                 }
+                
+                break;
+            
+            case "Enemy" :
+
+                if (coll.enabled)
+                {
+                    transform.Translate(playerDir * 100 + new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f) ));
+                }
+
                 break;
         }
 

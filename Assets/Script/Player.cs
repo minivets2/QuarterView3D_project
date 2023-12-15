@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     
     private float _hAxis;
     private float _vAxis;
-    private Vector3 _moveVec;
+    public Vector3 _moveVec;
     private Vector3 _dodgeVec;
     private Animator _animator;
     private Rigidbody _rigidbody;

@@ -16,14 +16,13 @@ public class Exp : MonoBehaviour
       GameManager.instance.LevelUp();
    }
 
-   public void ExperienceLevelUp(float exp)
+   public void ExperienceLevelUp()
    {
-      _expSlider.value += exp;
+      _expSlider.value++;
 
       if (_expSlider.value >= _expSlider.maxValue)
       {
          GameManager.instance.LevelUp();
-         _expSlider.value = 0;
          levelText.text = "LV " + GameManager.instance.Level;
       }
    }
@@ -31,5 +30,6 @@ public class Exp : MonoBehaviour
    public void SetExperience(int value)
    {
       _expSlider.maxValue = value;
+      _expSlider.value = 0;
    }
 }

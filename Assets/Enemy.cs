@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
         Vector3 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
         _rigid.MovePosition(_rigid.position + nextVec);
         _rigid.velocity = Vector3.zero;
+        transform.LookAt(transform.position + dirVec);
     }
 
     private void OnTriggerEnter(Collider other)

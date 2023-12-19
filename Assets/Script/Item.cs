@@ -15,7 +15,6 @@ public class Item : MonoBehaviour
     };
 
     public ItemType type;
-    public float exp;
     
     private Vector3 _targetPosition;
     private bool _hasTarget;

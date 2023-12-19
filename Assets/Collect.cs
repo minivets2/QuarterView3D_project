@@ -7,6 +7,6 @@ public class Collect : MonoBehaviour
         if (!other.CompareTag("Item")) return;
 
         other.GetComponent<Item>().Collect();
-        GameManager.instance.exp.ExperienceLevelUp(other.GetComponent<Item>().exp);
+        GameManager.instance.exp.ExperienceLevelUp();
     }
 }

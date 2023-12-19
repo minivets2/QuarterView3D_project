@@ -166,7 +166,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   health: 0
-  expItem: {fileID: 7662433306764845501, guid: 1e10fb799386a354d94eb5f139d408ec, type: 3}
 --- !u!114 &2538474556126210830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +279,7 @@ Animator:
   m_GameObject: {fileID: 865678376818602119}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3bdef411631921d4fbe20e3ed9280757, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1e73c762c308bbc4c8dbd882051175ec, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

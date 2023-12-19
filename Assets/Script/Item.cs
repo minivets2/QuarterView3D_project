@@ -17,10 +17,10 @@ public class Item : MonoBehaviour
     public ItemType type;
     public float exp;
     
-    [SerializeField] private Vector3 _targetPosition;
-    [SerializeField] private bool _hasTarget;
-    [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private const float Speed = 20f;
+    private Vector3 _targetPosition;
+    private bool _hasTarget;
+    private Rigidbody _rigidbody;
+    private const float Speed = 20f;
 
     private void OnEnable()
     {

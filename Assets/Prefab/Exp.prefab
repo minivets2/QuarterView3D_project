@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  exp: 1
   _targetPosition: {x: 0, y: 0, z: 0}
   _hasTarget: 0
   _rigidbody: {fileID: 0}

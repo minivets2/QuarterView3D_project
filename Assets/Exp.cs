@@ -24,7 +24,7 @@ public class Exp : MonoBehaviour
       {
          GameManager.instance.LevelUp();
          _expSlider.value = 0;
-         levelText.text = "LV " + GameManager.instance.level;
+         levelText.text = "LV " + GameManager.instance.Level;
       }
    }
 

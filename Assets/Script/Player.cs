@@ -9,11 +9,12 @@ public class Player : MonoBehaviour
     public GameObject[] weapons;
     public bool[] hasWeapons;
     public float jumpPower;
+    public GameObject weapon;
     
     private float _hAxis;
     private float _vAxis;
-    public Vector3 _inputVec;
     public Vector3 _moveVec;
+    public Vector3 _previousMoveVec;
     private Vector3 _dodgeVec;
     private Animator _animator;
     private Rigidbody _rigidbody;
@@ -38,13 +39,13 @@ public class Player : MonoBehaviour
     {
         _animator = GetComponentInChildren<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+        _previousMoveVec = new Vector3(100, 100, 100);
     }
 
     private void Update()
     {
         GetInput();
         Move();
-        Turn();
         Jump();
         Dodge();
         Swap();
@@ -66,7 +67,11 @@ public class Player : MonoBehaviour
     void Move()
     {
         _moveVec = new Vector3(_hAxis, 0, _vAxis).normalized;
-        _inputVec = _moveVec;
+
+        if (_previousMoveVec != _moveVec)
+        {
+            Turn();
+        }
 
         if (_isDodge)
             _moveVec = _dodgeVec;
@@ -82,7 +87,11 @@ public class Player : MonoBehaviour
 
     void Turn()
     {
+        weapon.transform.SetParent(null);
         transform.LookAt(transform.position + _moveVec);
+        weapon.transform.SetParent(gameObject.transform);
+        _previousMoveVec = _moveVec;
+        weapon.transform.localScale = Vector3.one;
     }
 
     void Jump()

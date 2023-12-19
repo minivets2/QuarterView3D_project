@@ -165,6 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  health: 0
+  expItem: {fileID: 7662433306764845501, guid: 1e10fb799386a354d94eb5f139d408ec, type: 3}
 --- !u!114 &2538474556126210830
 MonoBehaviour:
   m_ObjectHideFlags: 0

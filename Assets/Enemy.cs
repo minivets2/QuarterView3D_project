@@ -1,9 +1,11 @@
 using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     public float speed;
+    public float health;
 
     private Rigidbody _target;
     private bool _isLive;
@@ -21,5 +23,28 @@ public class Enemy : MonoBehaviour
         Vector3 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
         _rigid.MovePosition(_rigid.position + nextVec);
         _rigid.velocity = Vector3.zero;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Bullet")) return;
+
+        health -= other.GetComponent<Bullet>().damage;
+
+        if (health > 0)
+        {
+            
+        }
+        else
+        {
+            Dead();
+        }
+    }
+
+    void Dead()
+    {
+        gameObject.SetActive(false);
+        Transform exp = GameManager.instance.pool.Get(2).transform;
+        exp.position = transform.position;
     }
 }

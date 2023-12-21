@@ -34,11 +34,11 @@ public class Reposition : MonoBehaviour
 
                 if (diffx > diffz)
                 {
-                    transform.Translate(new Vector3(1, 0, 0) * dirX * 200);
+                    transform.Translate(new Vector3(1, 0, 0) * dirX * 400);
                 }
                 else if (diffx < diffz)
                 {
-                    transform.Translate(new Vector3(0, 0, 1) * dirZ * 200);
+                    transform.Translate(new Vector3(0, 0, 1) * dirZ * 400);
                 }
                 
                 break;
@@ -47,7 +47,7 @@ public class Reposition : MonoBehaviour
 
                 if (coll.enabled)
                 {
-                    transform.Translate(playerDir * 50 + new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f) ));
+                    transform.Translate(playerDir * 100 + new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f) ));
                 }
 
                 break;

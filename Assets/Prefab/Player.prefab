@@ -917,6 +917,7 @@ MonoBehaviour:
   hasWeapons: 000000
   jumpPower: 15
   weapon: {fileID: 8034974179404391729}
+  area: {fileID: 0}
   _moveVec: {x: 0, y: 0, z: 0}
   _previousMoveVec: {x: 0, y: 0, z: 0}
   _sDown1: 0
@@ -2415,7 +2416,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8034974177934309314}
-  - component: {fileID: 8034974177934309315}
   m_Layer: 0
   m_Name: Area
   m_TagString: Area
@@ -2438,19 +2438,6 @@ Transform:
   m_Father: {fileID: 3351700293153587359}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8034974177934309315
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8034974177934309313}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 40
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8034974178048003974
 GameObject:
   m_ObjectHideFlags: 0

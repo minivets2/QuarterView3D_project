@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public bool[] hasWeapons;
     public float jumpPower;
     public GameObject weapon;
-    
+
     private float _hAxis;
     private float _vAxis;
     public Vector3 _moveVec;

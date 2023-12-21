@@ -7,10 +7,10 @@ public class LevelUpPopup : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void OnclickItemButton()
+    public void OnclickItemButton(int id)
     {
         gameObject.SetActive(false);
         Time.timeScale = 1f;
-        GameManager.instance.player.weapon.LevelUp();
+        GameManager.instance.player.weapons[id].LevelUp(id);
     }
 }

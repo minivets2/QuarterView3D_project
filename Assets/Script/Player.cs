@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed;
-    public Weapon weapon;
+    public Weapon[] weapons;
     public Scanner scanner;
     
     private float _hAxis;
@@ -80,11 +80,11 @@ public class Player : MonoBehaviour
 
     void Turn()
     {
-        weapon.transform.SetParent(null);
+        weapons[0].transform.SetParent(null);
         transform.LookAt(transform.position + _moveVec);
-        weapon.transform.SetParent(gameObject.transform);
+        weapons[0].transform.SetParent(gameObject.transform);
         _previousMoveVec = _moveVec;
-        weapon.transform.localScale = Vector3.one;
+        weapons[0].transform.localScale = Vector3.one;
     }
 
     void Dodge()

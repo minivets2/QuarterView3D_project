@@ -69,8 +69,9 @@ public class Weapon : MonoBehaviour
                 break;
             
             case 1 :
-                speed = 0.3f;
-                
+                level = 1;
+                count = 1;
+                speed = 3f;
                 break;
             default:
                 break;
@@ -98,13 +99,13 @@ public class Weapon : MonoBehaviour
             
             UnityEngine.Vector3 rotVec = UnityEngine.Vector3.forward * 360 * i / count;
             bullet.Rotate(rotVec);
-            bullet.Translate(bullet.up * 5f, Space.World);
+            bullet.Translate(bullet.up * 6f, Space.World);
 
-            bullet.GetComponent<Bullet>().Init(damage, -1);
+            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);
         }
     }
 
-    public void LevelUp()
+    public void LevelUp(int id)
     {
         switch (id)
         {
@@ -115,6 +116,12 @@ public class Weapon : MonoBehaviour
                 level++;
                 Batch();
                 break;
+            case 1 :
+                damage++;
+                count++;
+                level++;
+                speed -= 0.5f;
+                break;
             default:
                 break;
         }
@@ -124,7 +131,14 @@ public class Weapon : MonoBehaviour
     {
         if (player.scanner.nearestTarget == null) return;
 
+        Vector3 targetPos = player.scanner.nearestTarget.position;
+        Vector3 dir = targetPos - transform.position;
+        dir = new Vector3(dir.x, 0, dir.z);
+        dir = dir.normalized;
+
         Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
         bullet.position = transform.position;
+        bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
+        bullet.GetComponent<Bullet>().Init(damage, count, dir);
     }
 }

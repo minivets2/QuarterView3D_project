@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
     private Vector3 _targetPosition;
     private bool _hasTarget;
     private Rigidbody _rigidbody;
-    private const float Speed = 20f;
+    private const float Speed = 40f;
 
     private void OnEnable()
     {

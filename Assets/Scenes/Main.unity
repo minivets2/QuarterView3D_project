@@ -398,7 +398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 16.29, y: 0}
+  m_AnchoredPosition: {x: 16.289978, y: 0}
   m_SizeDelta: {x: 50, y: -134}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &176565711
@@ -1233,6 +1233,7 @@ MonoBehaviour:
   pool: {fileID: 142092602}
   player: {fileID: 736778921}
   exp: {fileID: 1102537495}
+  hp: {fileID: 835370131}
   enemyCount: {fileID: 1398774658}
   levelUpPopup: {fileID: 1948774261}
 --- !u!4 &754379851
@@ -1260,6 +1261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 835370129}
   - component: {fileID: 835370130}
+  - component: {fileID: 835370131}
   m_Layer: 5
   m_Name: HP
   m_TagString: Untagged
@@ -1329,7 +1331,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 961973905}
   m_FillRect: {fileID: 1422389901}
   m_HandleRect: {fileID: 0}
@@ -1341,6 +1343,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &835370131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835370128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c996b6443b670343998bb26f181c598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &845032827
 GameObject:
   m_ObjectHideFlags: 0
@@ -4872,9 +4886,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4032194873087862316, guid: 4ad82de2d795a2d4e84180628b59131d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032194873087862316, guid: 4ad82de2d795a2d4e84180628b59131d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 6.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032194873087862316, guid: 4ad82de2d795a2d4e84180628b59131d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 6.79
+      objectReference: {fileID: 0}
     - target: {fileID: 6280448894372370855, guid: 4ad82de2d795a2d4e84180628b59131d, type: 3}
       propertyPath: count
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6280448894372370855, guid: 4ad82de2d795a2d4e84180628b59131d, type: 3}
+      propertyPath: effect
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6280448894372370855, guid: 4ad82de2d795a2d4e84180628b59131d, type: 3}
       propertyPath: prefabId
@@ -4899,6 +4929,18 @@ PrefabInstance:
     - target: {fileID: 8034974179404391729, guid: 4ad82de2d795a2d4e84180628b59131d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034974179404391731, guid: 4ad82de2d795a2d4e84180628b59131d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034974179404391731, guid: 4ad82de2d795a2d4e84180628b59131d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034974179404391731, guid: 4ad82de2d795a2d4e84180628b59131d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8085088523088378812, guid: 4ad82de2d795a2d4e84180628b59131d, type: 3}
       propertyPath: scanRange

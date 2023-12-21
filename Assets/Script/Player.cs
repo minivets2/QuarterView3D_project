@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
     public float speed;
     public Weapon[] weapons;
     public Scanner scanner;
+    public GameObject effect;
     
     private float _hAxis;
     private float _vAxis;
@@ -16,19 +17,12 @@ public class Player : MonoBehaviour
 
     private bool _wDown;
     private bool _jDown;
-    private bool _iDown;
-    public bool _sDown1;
-    public bool _sDown2;
-    public bool _sDown3;
-    
+
     private bool _isJump;
     private bool _isDodge;
     private bool _isSwap;
 
-    private GameObject _nearObject;
-    private GameObject _equipWeapon;
-
-    private int _equipWeaponIndex = -1;
+    public float health;
     
     private void Awake()
     {
@@ -36,6 +30,7 @@ public class Player : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         scanner = GetComponent<Scanner>();
         _previousMoveVec = new Vector3(100, 100, 100);
+        health = 500;
     }
 
     private void Update()
@@ -51,10 +46,6 @@ public class Player : MonoBehaviour
         _vAxis = Input.GetAxisRaw("Vertical");
         _wDown = Input.GetButton("Walk");
         _jDown = Input.GetButtonDown("Jump");
-        _iDown = Input.GetButtonDown("Interation");
-        _sDown1 = Input.GetButtonDown("Swap1");
-        _sDown2 = Input.GetButtonDown("Swap2");
-        _sDown3 = Input.GetButtonDown("Swap3");
     }
 
     void Move()
@@ -81,10 +72,11 @@ public class Player : MonoBehaviour
     void Turn()
     {
         weapons[0].transform.SetParent(null);
+        effect.transform.SetParent(null);
         transform.LookAt(transform.position + _moveVec);
         weapons[0].transform.SetParent(gameObject.transform);
+        effect.transform.SetParent(gameObject.transform);
         _previousMoveVec = _moveVec;
-        weapons[0].transform.localScale = Vector3.one;
     }
 
     void Dodge()
@@ -104,5 +96,27 @@ public class Player : MonoBehaviour
     {
         speed *= 0.5f;
         _isDodge = false;
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Enemy")) return;
+
+        health -= other.GetComponent<Enemy>().damage;
+        GameManager.instance.hp.SetHp();
+
+        if (health > 0)
+        {
+            
+        }
+        else
+        {
+            Dead();
+        }
+    }
+
+    private void Dead()
+    {
+        
     }
 }

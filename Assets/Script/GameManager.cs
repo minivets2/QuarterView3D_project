@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public PoolManager pool;
     public Player player;
     public Exp exp;
+    public Hp hp;
     public EnemyCount enemyCount;
     public LevelUpPopup levelUpPopup;
     

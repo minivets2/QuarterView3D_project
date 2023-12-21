@@ -1,6 +1,5 @@
-using System;
-using OpenCover.Framework.Model;
 using UnityEngine;
+using System.Collections;
 
 public class Weapon : MonoBehaviour
 {
@@ -13,14 +12,14 @@ public class Weapon : MonoBehaviour
     public int level;
 
     public ParticleSystem effect;
-
+    public bool isOn;
+    
     private float timer;
     private Player player;
     
     private void Start()
     {
         Init();
-        effect.Stop();
     }
 
     private void Awake()
@@ -36,6 +35,14 @@ public class Weapon : MonoBehaviour
             case 0 :
                 
                 transform.Rotate(UnityEngine.Vector3.back * speed * Time.deltaTime);
+                
+                timer += Time.deltaTime;
+                
+                if (timer > 15)
+                {
+                    timer = 0f;
+                    StartCoroutine(nameof(On));
+                }
                 
                 break;
             
@@ -65,7 +72,7 @@ public class Weapon : MonoBehaviour
                 level = 1;
                 count = 1;
                 speed = 120;
-                Batch();
+                StartCoroutine(nameof(On));
                 break;
             
             case 1 :
@@ -96,10 +103,11 @@ public class Weapon : MonoBehaviour
 
             bullet.localPosition = UnityEngine.Vector3.zero;
             bullet.localRotation = Quaternion.identity;
+            bullet.localScale = Vector3.one * 6f;
             
             UnityEngine.Vector3 rotVec = UnityEngine.Vector3.forward * 360 * i / count;
             bullet.Rotate(rotVec);
-            bullet.Translate(bullet.up * 6f, Space.World);
+            bullet.Translate(bullet.up * 7f, Space.World);
 
             bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);
         }
@@ -114,7 +122,6 @@ public class Weapon : MonoBehaviour
                 count++;
                 speed++;
                 level++;
-                Batch();
                 break;
             case 1 :
                 damage++;
@@ -140,5 +147,41 @@ public class Weapon : MonoBehaviour
         bullet.position = transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
         bullet.GetComponent<Bullet>().Init(damage, count, dir);
+    }
+
+    IEnumerator On()
+    {
+        effect.Play();
+        transform.localScale = Vector3.zero;
+
+        while (true)
+        {
+            transform.localScale += Vector3.one * 0.01f;
+            yield return new WaitForSeconds(0.01f);
+            Batch();
+            
+            if (transform.localScale.x >= 1f)
+            {
+                transform.localScale = Vector3.one;
+                Batch();
+                break;
+            }
+        }
+        
+        yield return new WaitForSeconds(5f);
+        
+        while (true)
+        {
+            transform.localScale -= Vector3.one * 0.01f;
+            yield return new WaitForSeconds(0.01f);
+            Batch();
+            
+            if (transform.localScale.x <= 0f)
+            {
+                break;
+            }
+        }
+   
+        transform.localScale = Vector3.zero;
     }
 }

@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public float speed;
     public float health;
+    public float damage;
 
     private Rigidbody _target;
     private bool _isLive;

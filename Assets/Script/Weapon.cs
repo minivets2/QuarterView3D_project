@@ -1,19 +1,32 @@
 using System;
+using OpenCover.Framework.Model;
 using UnityEngine;
-using UnityEngine.Rendering;
-using Vector3 = System.Numerics.Vector3;
 
 public class Weapon : MonoBehaviour
 {
     public int id;
     public int prefabId;
+    
     public float damage;
     public int count;
     public float speed;
+    public int level;
 
+    public ParticleSystem effect;
+
+    private float timer;
+    private Player player;
+    
     private void Start()
     {
         Init();
+        effect.Stop();
+    }
+
+    private void Awake()
+    {
+        player = GetComponentInParent<Player>();
+        timer = 0f;
     }
 
     private void Update()
@@ -21,9 +34,25 @@ public class Weapon : MonoBehaviour
         switch (id)
         {
             case 0 :
-                transform.Rotate(UnityEngine.Vector3.down * speed * Time.deltaTime);
+                
+                transform.Rotate(UnityEngine.Vector3.back * speed * Time.deltaTime);
+                
                 break;
+            
+            case 1 :
+                
+                timer += Time.deltaTime;
+
+                if (timer > speed)
+                {
+                    timer = 0f;
+                    Fire();
+                }
+                
+                break;
+            
             default:
+                
                 break;
         }
     }
@@ -33,8 +62,15 @@ public class Weapon : MonoBehaviour
         switch (id)
         {
             case 0 :
-                speed = 150;
+                level = 1;
+                count = 1;
+                speed = 120;
                 Batch();
+                break;
+            
+            case 1 :
+                speed = 0.3f;
+                
                 break;
             default:
                 break;
@@ -45,17 +81,50 @@ public class Weapon : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
-            bullet.parent = transform;
+            Transform bullet;
 
+            if (i < transform.childCount)
+            {
+                bullet = transform.GetChild(i);
+            }
+            else
+            {
+                bullet = GameManager.instance.pool.Get(prefabId).transform;
+                bullet.parent = transform;
+            }
+
+            bullet.localPosition = UnityEngine.Vector3.zero;
+            bullet.localRotation = Quaternion.identity;
+            
             UnityEngine.Vector3 rotVec = UnityEngine.Vector3.forward * 360 * i / count;
             bullet.Rotate(rotVec);
             bullet.Translate(bullet.up * 5f, Space.World);
 
             bullet.GetComponent<Bullet>().Init(damage, -1);
         }
-        
-        transform.Translate(UnityEngine.Vector3.up * 4.5f, Space.Self);
-        
+    }
+
+    public void LevelUp()
+    {
+        switch (id)
+        {
+            case 0 :
+                damage++;
+                count++;
+                speed++;
+                level++;
+                Batch();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void Fire()
+    {
+        if (player.scanner.nearestTarget == null) return;
+
+        Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
+        bullet.position = transform.position;
     }
 }

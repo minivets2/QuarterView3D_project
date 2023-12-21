@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
     void Dead()
     {
         gameObject.SetActive(false);
-        Transform exp = GameManager.instance.pool.Get(2).transform;
+        Transform exp = GameManager.instance.pool.Get(3).transform;
         exp.position = transform.position;
         
         GameManager.instance.enemyCount.IncreaseEnemyCount();

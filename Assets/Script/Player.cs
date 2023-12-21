@@ -1,16 +1,11 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Player : MonoBehaviour
 {
     public float speed;
-    public GameObject[] weapons;
-    public bool[] hasWeapons;
-    public float jumpPower;
-    public GameObject weapon;
-
+    public Weapon weapon;
+    public Scanner scanner;
+    
     private float _hAxis;
     private float _vAxis;
     public Vector3 _moveVec;
@@ -18,7 +13,7 @@ public class Player : MonoBehaviour
     private Vector3 _dodgeVec;
     private Animator _animator;
     private Rigidbody _rigidbody;
-    
+
     private bool _wDown;
     private bool _jDown;
     private bool _iDown;
@@ -39,6 +34,7 @@ public class Player : MonoBehaviour
     {
         _animator = GetComponentInChildren<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+        scanner = GetComponent<Scanner>();
         _previousMoveVec = new Vector3(100, 100, 100);
     }
 
@@ -46,10 +42,7 @@ public class Player : MonoBehaviour
     {
         GetInput();
         Move();
-        Jump();
         Dodge();
-        Swap();
-        Interation();
     }
 
     void GetInput()
@@ -94,17 +87,6 @@ public class Player : MonoBehaviour
         weapon.transform.localScale = Vector3.one;
     }
 
-    void Jump()
-    {
-        if (_jDown && _moveVec == Vector3.zero && !_isJump && !_isDodge && !_isSwap)
-        {
-            _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-            _animator.SetBool("isJump", true);
-            _animator.SetTrigger("doJump");
-            _isJump = true;
-        }
-    }
-    
     void Dodge()
     {
         if (_jDown && _moveVec != Vector3.zero && !_isJump && !_isDodge && !_isSwap)
@@ -122,80 +104,5 @@ public class Player : MonoBehaviour
     {
         speed *= 0.5f;
         _isDodge = false;
-    }
-
-    void Swap()
-    {
-        if (_sDown1 && (!hasWeapons[0] || _equipWeaponIndex == 0)) return;
-        if (_sDown2 && (!hasWeapons[1] || _equipWeaponIndex == 1)) return;
-        if (_sDown3 && (!hasWeapons[2] || _equipWeaponIndex == 2)) return;
-
-        int weaponIndex = -1;
-
-        if (_sDown1) weaponIndex = 0;
-        if (_sDown2) weaponIndex = 1;
-        if (_sDown3) weaponIndex = 2;
-        
-        if ((_sDown1 || _sDown2 || _sDown3) && !_isJump && !_isDodge)
-        {
-            if (_equipWeapon != null)
-               _equipWeapon.SetActive(false);
-
-            _equipWeaponIndex = weaponIndex;
-            _equipWeapon = weapons[weaponIndex];
-            _equipWeapon.SetActive(true);
-            
-            _animator.SetTrigger("doSwap");
-
-            _isSwap = true;
-            
-            Invoke(nameof(SwapOut), 0.5f);
-        }
-    }
-    
-    void SwapOut()
-    {
-        _isSwap = false;
-    }
-
-    void Interation()
-    {
-        if (_iDown && _nearObject != null && !_isJump && !_isDodge)
-        {
-            if (_nearObject.tag == "Weapon")
-            {
-                Item item = _nearObject.GetComponent<Item>();
-                //int weaponIndex = item.value;
-
-                //hasWeapons[weaponIndex] = true;
-                
-                Destroy(_nearObject);
-            }
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Floor")
-        {
-            _animator.SetBool("isJump", false);
-            _isJump = false;
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Weapon")
-        {
-            _nearObject = other.gameObject;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Weapon")
-        {
-            _nearObject = null;
-        }
     }
 }

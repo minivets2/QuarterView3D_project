@@ -32,6 +32,37 @@ Transform:
   m_Father: {fileID: 298705311945418932}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2206995396862422545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1460521706389933949}
+  m_Layer: 3
+  m_Name: DamagePopupPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1460521706389933949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206995396862422545}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5.82, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8518680113099915252}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2263047670084703759
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,6 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3063713498734056589}
   - component: {fileID: 3427017484064449549}
+  - component: {fileID: 8210732611911877604}
   m_Layer: 3
   m_Name: body_arms
   m_TagString: Untagged
@@ -145,6 +177,19 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00018370152, y: 0.20051612, z: -0.021011114}
     m_Extent: {x: 0.74691117, y: 0.113780305, z: 0.091611005}
   m_DirtyAABB: 0
+--- !u!114 &8210732611911877604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2263047670084703759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aee7a79be8995f40a78a70af26eb30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBlinking: 0
 --- !u!1 &2696322030589225093
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1123825487106253217}
   - component: {fileID: 2752720836444259899}
+  - component: {fileID: 2011966599070511944}
   m_Layer: 3
   m_Name: body_head
   m_TagString: Untagged
@@ -324,6 +370,19 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0.6628249, z: -0.044824094}
     m_Extent: {x: 0.31384397, y: 0.3330397, z: 0.37821218}
   m_DirtyAABB: 0
+--- !u!114 &2011966599070511944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793011725518194760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aee7a79be8995f40a78a70af26eb30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBlinking: 0
 --- !u!1 &3473167911195482904
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +520,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8230449561388668645}
   - component: {fileID: 6243891290894186493}
+  - component: {fileID: 9173402983995494594}
   m_Layer: 3
   m_Name: body_torso
   m_TagString: Untagged
@@ -564,6 +624,19 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000000014901161, y: 0.125723, z: 0.0026206821}
     m_Extent: {x: 0.24043, y: 0.2833993, z: 0.19290474}
   m_DirtyAABB: 0
+--- !u!114 &9173402983995494594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416342248623600243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aee7a79be8995f40a78a70af26eb30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBlinking: 0
 --- !u!1 &4897508931689733318
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +676,7 @@ Transform:
   - {fileID: 8230449561388668645}
   - {fileID: 1966249697588629292}
   - {fileID: 7332502499678810996}
+  - {fileID: 1460521706389933949}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -670,8 +744,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  health: 0
+  health: 3
   damage: 1
+  damagePopupPoint: {fileID: 1460521706389933949}
+  _blinkEffect: []
 --- !u!114 &206190495258847481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,6 +834,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7108941733533854554}
   - component: {fileID: 4358121088821630574}
+  - component: {fileID: 2815477807173998339}
   m_Layer: 3
   m_Name: body_legs
   m_TagString: Untagged
@@ -861,6 +938,19 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00088584423, y: -0.28668702, z: 0.015242621}
     m_Extent: {x: 0.17382908, y: 0.22790802, z: 0.11229749}
   m_DirtyAABB: 0
+--- !u!114 &2815477807173998339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091027316205146525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aee7a79be8995f40a78a70af26eb30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBlinking: 0
 --- !u!1 &5256708224488845508
 GameObject:
   m_ObjectHideFlags: 0

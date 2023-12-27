@@ -21,6 +21,34 @@ public class Weapon : MonoBehaviour
     {
         Init();
     }
+    
+    public void Init()
+    {
+        switch (id)
+        {
+            case 0 :
+                level = 1;
+                count = 1;
+                speed = 120;
+                StartCoroutine(nameof(On));
+                break;
+            
+            case 1 :
+                level = 1;
+                count = 1;
+                speed = 2.1f;
+                break;
+            
+            case 2 :
+                level = 1;
+                count = 1;
+                StartCoroutine(nameof(AreaAttack));
+                break;
+            
+            default:
+                break;
+        }
+    }
 
     private void Awake()
     {
@@ -58,28 +86,48 @@ public class Weapon : MonoBehaviour
                 
                 break;
             
+            case 2 :
+
+                timer += Time.deltaTime;
+
+                if (timer > 10)
+                {
+                    timer = 0f;
+                    StartCoroutine(nameof(AreaAttack));
+                }
+
+                break;
+            
             default:
                 
                 break;
         }
     }
-
-    public void Init()
+    
+    public void LevelUp(int id)
     {
         switch (id)
         {
             case 0 :
-                level = 1;
-                count = 1;
-                speed = 120;
-                StartCoroutine(nameof(On));
+                damage++;
+                count++;
+                speed++;
+                level++;
                 break;
             
             case 1 :
-                level = 1;
-                count = 1;
-                speed = 2.1f;
+                damage++;
+                count++;
+                level++;
+                speed -= 0.1f;
                 break;
+            
+            case 2 :
+                damage++;
+                count++;
+                level++;
+                break;
+            
             default:
                 break;
         }
@@ -110,27 +158,6 @@ public class Weapon : MonoBehaviour
             bullet.Translate(bullet.up * 7f, Space.World);
 
             bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);
-        }
-    }
-
-    public void LevelUp(int id)
-    {
-        switch (id)
-        {
-            case 0 :
-                damage++;
-                count++;
-                speed++;
-                level++;
-                break;
-            case 1 :
-                damage++;
-                count++;
-                level++;
-                speed -= 0.1f;
-                break;
-            default:
-                break;
         }
     }
 
@@ -183,5 +210,20 @@ public class Weapon : MonoBehaviour
         }
    
         transform.localScale = Vector3.zero;
+    }
+
+    IEnumerator AreaAttack()
+    {
+        for (int i = 0; i < count; i++)
+        {
+            Transform area;
+
+            area = GameManager.instance.pool.Get(prefabId).transform;
+            area.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);
+
+            area.position = GameManager.instance.player.transform.position + new Vector3(Random.Range(-20f, 20f), 0, Random.Range(-20f, 20f));
+            
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }

@@ -744,10 +744,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  health: 3
+  health: 6
   damage: 1
   damagePopupPoint: {fileID: 1460521706389933949}
   _blinkEffect: []
+  isAreaAttack: 0
 --- !u!114 &206190495258847481
 MonoBehaviour:
   m_ObjectHideFlags: 0

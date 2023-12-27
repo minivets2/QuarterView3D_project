@@ -6,28 +6,28 @@ public class Player : MonoBehaviour
     public Weapon[] weapons;
     public Scanner scanner;
     public GameObject effect;
+    public float health;
+    public Vector3 _moveVec;
+    public Vector3 _previousMoveVec;
+
+    private PlayerDamage _playerDamage;
+    private Vector3 _dodgeVec;
+    public Animator _animator;
     
     private float _hAxis;
     private float _vAxis;
-    public Vector3 _moveVec;
-    public Vector3 _previousMoveVec;
-    private Vector3 _dodgeVec;
-    private Animator _animator;
-    private Rigidbody _rigidbody;
-
+    
     private bool _wDown;
     private bool _jDown;
-
     private bool _isJump;
     private bool _isDodge;
     private bool _isSwap;
 
-    public float health;
     
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
-        _rigidbody = GetComponent<Rigidbody>();
+        _playerDamage = GetComponentInChildren<PlayerDamage>();
         scanner = GetComponent<Scanner>();
         _previousMoveVec = new Vector3(100, 100, 100);
         health = 500;
@@ -97,26 +97,9 @@ public class Player : MonoBehaviour
         speed *= 0.5f;
         _isDodge = false;
     }
-    
-    private void OnTriggerEnter(Collider other)
+
+    public void OnDamageAnimationComplete()
     {
-        if (!other.CompareTag("Enemy")) return;
-
-        health -= other.GetComponent<Enemy>().damage;
-        GameManager.instance.hp.SetHp();
-
-        if (health > 0)
-        {
-            
-        }
-        else
-        {
-            Dead();
-        }
-    }
-
-    private void Dead()
-    {
-        
+        _playerDamage.OnDamageAnimationComplete();
     }
 }

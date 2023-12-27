@@ -1,9 +1,16 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class BlinkEffect : MonoBehaviour
 {
-    public bool isBlinking = false;
+    private bool isBlinking = false;
+
+    private void OnEnable()
+    {
+        isBlinking = false;
+        ChangeColorOnHit(Color.white);
+    }
 
     public void StartBlinking()
     {

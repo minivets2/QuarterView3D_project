@@ -744,7 +744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  health: 6
+  health: 30
   damage: 1
   damagePopupPoint: {fileID: 1460521706389933949}
   _blinkEffect: []

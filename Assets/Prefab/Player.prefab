@@ -399,7 +399,7 @@ MonoBehaviour:
   health: 0
   _moveVec: {x: 0, y: 0, z: 0}
   _previousMoveVec: {x: 0, y: 0, z: 0}
-  _blinkEffects: []
+  _animator: {fileID: 0}
 --- !u!114 &6890323418109743301
 MonoBehaviour:
   m_ObjectHideFlags: 0

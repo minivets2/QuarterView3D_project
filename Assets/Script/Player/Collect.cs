@@ -8,5 +8,6 @@ public class Collect : MonoBehaviour
 
         other.GetComponent<Item>().Collect();
         GameManager.instance.exp.ExperienceLevelUp();
+        AudioManager.instance.PlaySFX(SoundName.EXP);
     }
 }

@@ -12,5 +12,6 @@ public class LevelUpPopup : MonoBehaviour
         gameObject.SetActive(false);
         Time.timeScale = 1f;
         GameManager.instance.player.weapons[id].LevelUp(id);
+        AudioManager.instance.PlaySFX(SoundName.Button);
     }
 }

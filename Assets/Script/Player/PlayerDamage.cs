@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour
@@ -22,14 +21,14 @@ public class PlayerDamage : MonoBehaviour
 
     void GetAttack(float enemyDamage)
     {
-        _player.health -= enemyDamage;
+        _player.DecreaseHealth(enemyDamage);
 
         AudioManager.instance.PlaySFX(SoundName.Hit);
-        _player._animator.SetTrigger("doHit");
+        _player.GetAnimation().SetTrigger("doHit");
             
         GameManager.instance.hp.SetHp();
     
-        if (_player.health > 0)
+        if (_player.GetHealth() > 0)
         {
                 
         }

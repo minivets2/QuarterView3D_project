@@ -10,12 +10,12 @@ public class Hp : MonoBehaviour
     public void Start()
     {
         hpSlider = GetComponent<Slider>();
-        hpSlider.maxValue = GameManager.instance.player.health;
-        hpSlider.value = GameManager.instance.player.health;
+        hpSlider.maxValue = GameManager.instance.player.GetHealth();
+        hpSlider.value = GameManager.instance.player.GetHealth();
     }
 
     public void SetHp()
     {
-        hpSlider.value = GameManager.instance.player.health;
+        hpSlider.value = GameManager.instance.player.GetHealth();
     }
 }

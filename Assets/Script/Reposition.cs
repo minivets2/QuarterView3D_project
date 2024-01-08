@@ -16,7 +16,7 @@ public class Reposition : MonoBehaviour
         if (!other.CompareTag("Area")) return;
 
         Vector3 playerPos = GameManager.instance.player.transform.position;
-        Vector3 playerDir = GameManager.instance.player._moveVec;
+        Vector3 playerDir = GameManager.instance.player.MoveVec;
         Vector3 myPos = transform.position;
 
         float dirX = playerPos.x - myPos.x;

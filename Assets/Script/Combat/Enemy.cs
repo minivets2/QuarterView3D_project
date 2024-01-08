@@ -2,17 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Unit
 {
-    public float speed;
-    public float health;
     public float damage;
     public Transform damagePopupPoint;
         
     private Rigidbody _target;
     private bool _isLive;
-    private Rigidbody _rigid;
-    private Animator _ani;
     private bool _isDead;
     public BlinkEffect[] _blinkEffect;
     public bool isAreaAttack;
@@ -21,9 +17,9 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
-        _rigid = GetComponent<Rigidbody>();
+        rigid = GetComponent<Rigidbody>();
         _target = GameManager.instance.player.GetComponent<Rigidbody>();
-        _ani = GetComponent<Animator>();
+        ani = GetComponent<Animator>();
         _isDead = false;
         _blinkEffect = GetComponentsInChildren<BlinkEffect>();
     }
@@ -46,12 +42,24 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Move();
+        Turn();
+    }
+
+    public override void Move()
+    {
         if (_isDead) return;
         
-        Vector3 dirVec = _target.position - _rigid.position;
+        Vector3 dirVec = _target.position - rigid.position;
         Vector3 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
-        _rigid.MovePosition(_rigid.position + nextVec);
-        _rigid.velocity = Vector3.zero;
+        rigid.MovePosition(rigid.position + nextVec);
+        rigid.velocity = Vector3.zero;
+    }
+    
+    
+    public override void Turn()
+    {
+        Vector3 dirVec = _target.position - rigid.position;
         transform.LookAt(transform.position + dirVec);
     }
 
@@ -105,7 +113,7 @@ public class Enemy : MonoBehaviour
 
     void Dead()
     {
-        _ani.SetBool("isDead", true);
+        ani.SetBool("isDead", true);
         //AudioManager.instance.PlaySFX(SoundName.EnemyDead);
         _isDead = true;
         

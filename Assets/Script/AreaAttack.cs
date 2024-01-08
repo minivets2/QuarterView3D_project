@@ -1,47 +1,25 @@
-using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
-public class AreaAttack : MonoBehaviour
+public class AreaAttack : MonoBehaviour, IWeapon
 {
-    private bool _isOn;
-    private float _timer;
-    public List<Enemy> _nearEnemy;
-
-    private void OnEnable()
-    {
-        _isOn = true;
+    public void Shoot(float damage, int count)
+    { 
+        StartCoroutine(On(damage, count));
     }
-
-    private void Update()
+    
+    IEnumerator On(float damage, int count)
     {
-        if (_isOn)
+        for (int i = 0; i < count; i++)
         {
-            _timer += Time.deltaTime;
+            Transform area;
 
-            if (_timer > 5)
-            {
-                _timer = 0f;
-                _isOn = false;
+            area = GameManager.instance.pool.Get(6).transform;
+            area.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);
 
-                for (int i = 0; i < _nearEnemy.Count; i++)
-                {
-                    _nearEnemy[i].isAreaAttack = false;
-                }
-                
-                _nearEnemy.Clear();
-                gameObject.SetActive(false);
-            }
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (!other.CompareTag("Enemy")) return;
-
-        if (!_nearEnemy.Contains(other.GetComponent<Enemy>()))
-        {
-            _nearEnemy.Add(other.GetComponent<Enemy>());
+            area.position = GameManager.instance.player.transform.position + new Vector3(Random.Range(-20f, 20f), 0, Random.Range(-20f, 20f));
+            
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }

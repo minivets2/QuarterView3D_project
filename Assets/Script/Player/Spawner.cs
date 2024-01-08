@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
     {
         _timer += Time.deltaTime;
 
-        if (_timer > 1f)
+        if (_timer > 0.8f)
         {
             Spawn();
             _timer = 0;

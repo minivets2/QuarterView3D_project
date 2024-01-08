@@ -24,6 +24,7 @@ public class PlayerDamage : MonoBehaviour
     {
         _player.health -= enemyDamage;
 
+        AudioManager.instance.PlaySFX(SoundName.Hit);
         _player._animator.SetTrigger("doHit");
             
         GameManager.instance.hp.SetHp();

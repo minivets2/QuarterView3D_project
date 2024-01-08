@@ -1000,6 +1000,10 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 603a1bd1b85bf6b43920ad15ca110771, type: 3}
   - Name: 3
     Clip: {fileID: 8300000, guid: 416ce1f2ffdf575448d7165c48040e31, type: 3}
+  - Name: 4
+    Clip: {fileID: 8300000, guid: 8976244eeebdcb446a06c86a4328bdef, type: 3}
+  - Name: 5
+    Clip: {fileID: 8300000, guid: 71988040d9cd1104f8f659a5fbd84250, type: 3}
   musicSource: {fileID: 1484873083}
   sfxSource: {fileID: 1652050086}
 --- !u!4 &693628846
@@ -4992,9 +4996,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4623701452796989003, guid: c7d37ea9d61c6b6479a52ac4f1eb5f67, type: 3}
+      propertyPath: weaponType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6184570109914826096, guid: c7d37ea9d61c6b6479a52ac4f1eb5f67, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7661908264198081415, guid: c7d37ea9d61c6b6479a52ac4f1eb5f67, type: 3}
+      propertyPath: weaponType
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7d37ea9d61c6b6479a52ac4f1eb5f67, type: 3}

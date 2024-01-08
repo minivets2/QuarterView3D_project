@@ -1,11 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
+public enum WeaponType
+{
+    Sword,
+    Shield,
+    AreaAttack
+}
+
 public class Weapon : MonoBehaviour
 {
-    public int id;
-    public int prefabId;
-    
+    public WeaponType weaponType;
     public float damage;
     public int count;
     public float speed;
@@ -17,37 +22,44 @@ public class Weapon : MonoBehaviour
     private float timer;
     private Player player;
     
+    private IWeapon _weapon;
+    private GameObject _myWeapon;
+    
     private void Start()
     {
         Init();
     }
-    
+
     public void Init()
     {
-        switch (id)
+        switch (weaponType)
         {
-            case 0 :
+            case WeaponType.Shield :
                 level = 1;
                 count = 1;
                 speed = 120;
-                StartCoroutine(nameof(On));
+                _weapon = gameObject.AddComponent<Shield>();
+                effect.Play();
                 break;
             
-            case 1 :
+            case WeaponType.Sword :
                 level = 1;
                 count = 1;
-                speed = 2.1f;
+                speed = 1.2f;
+                _weapon = gameObject.AddComponent<Sword>();
                 break;
             
-            case 2 :
+            case WeaponType.AreaAttack :
                 level = 1;
-                count = 1;
-                StartCoroutine(nameof(AreaAttack));
+                count = 2;
+                _weapon = gameObject.AddComponent<AreaAttack>();
                 break;
             
             default:
                 break;
         }
+        
+        Fire();
     }
 
     private void Awake()
@@ -58,9 +70,9 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        switch (id)
+        switch (weaponType)
         {
-            case 0 :
+            case WeaponType.Shield :
                 
                 transform.Rotate(UnityEngine.Vector3.back * speed * Time.deltaTime);
                 
@@ -69,12 +81,14 @@ public class Weapon : MonoBehaviour
                 if (timer > 15)
                 {
                     timer = 0f;
-                    StartCoroutine(nameof(On));
+                    
+                    effect.Play();
+                    Fire();
                 }
                 
                 break;
             
-            case 1 :
+            case WeaponType.Sword :
                 
                 timer += Time.deltaTime;
 
@@ -86,14 +100,14 @@ public class Weapon : MonoBehaviour
                 
                 break;
             
-            case 2 :
+            case WeaponType.AreaAttack :
 
                 timer += Time.deltaTime;
 
                 if (timer > 10)
                 {
                     timer = 0f;
-                    StartCoroutine(nameof(AreaAttack));
+                    Fire();
                 }
 
                 break;
@@ -106,23 +120,23 @@ public class Weapon : MonoBehaviour
     
     public void LevelUp(int id)
     {
-        switch (id)
+        switch (weaponType)
         {
-            case 0 :
+            case WeaponType.Shield :
                 damage++;
                 count++;
                 speed++;
                 level++;
                 break;
             
-            case 1 :
+            case WeaponType.Sword :
                 damage++;
                 count++;
                 level++;
                 speed -= 0.1f;
                 break;
             
-            case 2 :
+            case WeaponType.AreaAttack :
                 damage++;
                 count++;
                 level++;
@@ -132,98 +146,9 @@ public class Weapon : MonoBehaviour
                 break;
         }
     }
-
-    private void Batch()
-    {
-        for (int i = 0; i < count; i++)
-        {
-            Transform bullet;
-
-            if (i < transform.childCount)
-            {
-                bullet = transform.GetChild(i);
-            }
-            else
-            {
-                bullet = GameManager.instance.pool.Get(prefabId).transform;
-                bullet.parent = transform;
-            }
-
-            bullet.localPosition = UnityEngine.Vector3.zero;
-            bullet.localRotation = Quaternion.identity;
-            bullet.localScale = Vector3.one * 6f;
-            
-            UnityEngine.Vector3 rotVec = UnityEngine.Vector3.forward * 360 * i / count;
-            bullet.Rotate(rotVec);
-            bullet.Translate(bullet.up * 7f, Space.World);
-
-            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);
-        }
-    }
-
+    
     private void Fire()
     {
-        if (player.scanner.nearestTarget == null) return;
-
-        Vector3 targetPos = player.scanner.nearestTarget.position;
-        Vector3 dir = targetPos - transform.position;
-        dir = new Vector3(dir.x, 0, dir.z);
-        dir = dir.normalized;
-
-        Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
-        bullet.position = transform.position;
-        bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
-        bullet.GetComponent<Bullet>().Init(damage, count, dir);
-    }
-
-    IEnumerator On()
-    {
-        effect.Play();
-        transform.localScale = Vector3.zero;
-
-        while (true)
-        {
-            transform.localScale += Vector3.one * 0.01f;
-            yield return new WaitForSeconds(0.01f);
-            Batch();
-            
-            if (transform.localScale.x >= 1f)
-            {
-                transform.localScale = Vector3.one;
-                Batch();
-                break;
-            }
-        }
-        
-        yield return new WaitForSeconds(5f);
-        
-        while (true)
-        {
-            transform.localScale -= Vector3.one * 0.01f;
-            yield return new WaitForSeconds(0.01f);
-            Batch();
-            
-            if (transform.localScale.x <= 0f)
-            {
-                break;
-            }
-        }
-   
-        transform.localScale = Vector3.zero;
-    }
-
-    IEnumerator AreaAttack()
-    {
-        for (int i = 0; i < count; i++)
-        {
-            Transform area;
-
-            area = GameManager.instance.pool.Get(prefabId).transform;
-            area.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);
-
-            area.position = GameManager.instance.player.transform.position + new Vector3(Random.Range(-20f, 20f), 0, Random.Range(-20f, 20f));
-            
-            yield return new WaitForSeconds(0.5f);
-        }
+        _weapon.Shoot(damage, count);
     }
 }

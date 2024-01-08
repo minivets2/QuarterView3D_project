@@ -84,6 +84,7 @@ public class Enemy : MonoBehaviour
     void GetAttack(float playerDamage)
     {
         health -= playerDamage;
+        AudioManager.instance.PlaySFX(SoundName.Hit);
 
         for (int i = 0; i < _blinkEffect.Length; i++)
         {
@@ -105,6 +106,7 @@ public class Enemy : MonoBehaviour
     void Dead()
     {
         _ani.SetBool("isDead", true);
+        //AudioManager.instance.PlaySFX(SoundName.EnemyDead);
         _isDead = true;
         
         Invoke(nameof(Destroy), 1f);
@@ -113,6 +115,7 @@ public class Enemy : MonoBehaviour
     public void Destroy()
     {
         gameObject.SetActive(false);
+        
         Transform exp = GameManager.instance.pool.Get(3).transform;
         exp.position = transform.position;
         

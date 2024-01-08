@@ -6,6 +6,8 @@ public enum SoundName
     EXP,
     FireSword,
     Button,
+    Hit,
+    EnemyDead,
 }
 
 [System.Serializable]
